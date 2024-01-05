@@ -3,7 +3,8 @@ import { DeadlineCalculatorController } from "./deadline-calculator.controller";
 import { DeadlineCalculatorService } from "./deadline-calculator.service";
 
 @Module({
-    controllers: [DeadlineCalculatorController],
-    providers: [DeadlineCalculatorService],
+  controllers: [DeadlineCalculatorController],
+  providers: [DeadlineCalculatorService]
 })
-export class DeadlineCalculatorModule {}
+export class DeadlineCalculatorModule {
+}

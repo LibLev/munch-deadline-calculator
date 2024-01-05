@@ -31,7 +31,7 @@ describe("App e2e", () => {
     describe("Send report", () => {
       it("test for week day", () => {
         const dto: ReportDto = {
-          date: '2024-01-04T10:00',
+          date: "2024-01-04T10:00",
           duration: 6
         };
         return pactum
@@ -44,7 +44,7 @@ describe("App e2e", () => {
 
       it("test for weekend", () => {
         const dto: ReportDto = {
-          date: '2024-01-05T10:00',
+          date: "2024-01-05T10:00",
           duration: 8
         };
         return pactum
@@ -57,7 +57,7 @@ describe("App e2e", () => {
 
       it("test for next day", () => {
         const dto: ReportDto = {
-          date: '2024-01-04T10:00',
+          date: "2024-01-04T10:00",
           duration: 8
         };
         return pactum
@@ -70,7 +70,7 @@ describe("App e2e", () => {
 
       it("test for end of the month", () => {
         const dto: ReportDto = {
-          date: '2024-01-31T10:00',
+          date: "2024-01-31T10:00",
           duration: 8
         };
         return pactum
@@ -83,7 +83,7 @@ describe("App e2e", () => {
 
       it("test for report sent on weekend throw exception", () => {
         const dto: ReportDto = {
-          date: '2024-01-6T10:00',
+          date: "2024-01-6T10:00",
           duration: 6
         };
         return pactum
