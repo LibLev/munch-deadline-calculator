@@ -1,24 +1,47 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { Test } from '@nestjs/testing';
+import { INestApplication, ValidationPipe } from "@nestjs/common"
+import { AppModule } from '../src/app.module';
+import * as pactum from 'pactum';
+import { ReportDto } from 'src/deadline-calculator/dto';
 
-describe('AppController (e2e)', () => {
+describe('App e2e', () =>{
   let app: INestApplication;
-
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
+  beforeAll(async () => {
+    const moduleRef =
+    await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
+    app = moduleRef.createNestApplication();
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+      }),
+    );
+    await app.init;
+    await app.listen(3333);
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    pactum.request.setBaseUrl('http://localhost:3333');
+  })
+
+  afterAll(() => {
+    app.close();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
-  });
-});
+  describe('Deadline calculator', () => {
+    describe('Report on weekend', () => {
+      it('should throw exception', () => {
+        const dto: ReportDto = {
+          date: new Date(2024, 1, 4, 11, 25),
+          duration: 6
+        }
+        return pactum
+          .spec()
+          .get('/deadline-calculator')
+          .withBody(dto)
+          .inspect
+      });
+    });
+  })
+
+
+})
