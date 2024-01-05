@@ -11,6 +11,7 @@ export class DeadlineCalculatorController {
 
   @Get()
   getDeadline(@Body() dto: ReportDto) {
+    //date format is: yyyy-MM-ddTHH:mm
     return this.deadlineService.calculateDeadline(dto);
   }
 }
