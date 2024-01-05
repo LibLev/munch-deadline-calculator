@@ -1,6 +1,9 @@
-export class ReportDto {
-    
-    date: Date
+import { IsNotEmpty } from "class-validator";
 
-    duration: number
+export class ReportDto {
+  @IsNotEmpty()
+  date: string;
+
+  @IsNotEmpty()
+  duration: number;
 }
